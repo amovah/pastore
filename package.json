@@ -1,0 +1,29 @@
+{
+  "name": "pastore",
+  "version": "0.0.1",
+  "description": "keep your password safe",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amovah/pastore.git"
+  },
+  "keywords": [
+    "pass",
+    "safe",
+    "store",
+    "keeper",
+    "encrypted",
+    "es6",
+    "nodejs",
+    "gulp"
+  ],
+  "author": "Ali Movahedi <ali_movahedi@aol.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amovah/pastore/issues"
+  },
+  "homepage": "https://github.com/amovah/pastore#readme"
+}
