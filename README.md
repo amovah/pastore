@@ -1,3 +1,3 @@
 # pastore
 
-keep your passwords safe.
+pastore API. in progress
