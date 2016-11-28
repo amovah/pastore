@@ -11,10 +11,7 @@ export default class Pastore {
       config: join(__dirname + '/config.json'),
       database: join(__dirname + '/database')
     };
-    this.db = [{ id: '51910bD417a434bdCd2bEfdf47357932',
-    title: 'first',
-    password: 'hhmm',
-    moreInfo: 'more info' }];
+    this.db = [];
     this.password = null;
   }
 
