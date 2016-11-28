@@ -81,3 +81,11 @@ export function enc(string, password, method) {
 export function dec(string, password, method) {
   return cr[method].decrypt(string, password).toString(cr.enc.Utf8);
 }
+
+export function find(data, id) {
+  for (let [index, pass] of data.entries()) {
+    if (pass.id === id) {
+      return index;
+    }
+  }
+}
