@@ -105,9 +105,29 @@ class Pastore {
     return this.saveDB();
   }
 
-  find(id) {
+  findById(id) {
     for (let pass of this.db) {
       if (pass.id === id) {
+        return pass;
+      }
+    }
+  }
+
+  find(key, value) {
+    let result = [];
+
+    for (let pass of this.db) {
+      if (pass[key] === value) {
+        result.push(pass);
+      }
+    }
+
+    return result.length === 0 ? undefined : result;
+  }
+
+  findOne(key, value) {
+    for (let pass of this.db.values()) {
+      if (pass[key] === value) {
         return pass;
       }
     }
