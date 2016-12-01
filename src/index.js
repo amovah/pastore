@@ -4,7 +4,7 @@ import { join } from 'path';
 import * as _ from './utils';
 import config from './config';
 
-export default class Pastore {
+class Pastore {
   constructor() {
     this.config = config;
     this.paths = {
@@ -120,5 +120,10 @@ export default class Pastore {
   async changePassword(password) {
     this.password = password;
     this.config.testString = _.enc('pastore', password, this.config.method);
+
+    await this.saveConfig();
+    await this.saveDB();
   }
 }
+
+export default new Pastore();
