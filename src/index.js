@@ -96,9 +96,18 @@ class Pastore {
   update(id, update) {
     let index = _.find(this.db, id);
 
+    let toUpdate = {};
+
+    for (let key in update) {
+      if (update[key] !== undefined || null) {
+        toUpdate[key] = update[key];
+      }
+    }
+
+
     this.db = [
       ...this.db.slice(0, index),
-      Object.assign({}, this.db[index], update),
+      Object.assign({}, this.db[index], toUpdate),
       ...this.db.slice(index + 1)
     ];
 
