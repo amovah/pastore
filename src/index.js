@@ -40,7 +40,7 @@ class Pastore {
     }
   }
 
-  get needConfig() {
+  get needInit() {
     return !this.config.testString;
   }
 
