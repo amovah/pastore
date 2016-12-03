@@ -26,9 +26,9 @@ Example:
 
 ```javascript
 if (pastore.needInit) {
-  console.log('everthing is ready');
-} else {
   console.log('You should initialize pastore');
+} else {
+  console.log('everthing is ready');
 }
 ```
 
