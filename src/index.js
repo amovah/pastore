@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import { unique } from 'stringing';
 import { join } from 'path';
 import * as _ from './utils';
