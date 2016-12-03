@@ -17,7 +17,8 @@ We love pull requests. Here’s a quick guide:
   ```bash
   git clone https://github.com/amovah/pastore
   ```
-2. Change whatever you want.
+
+2. Change whatever you want and fix the issue (or bug).
 
 3. Build your code:
 
@@ -25,7 +26,7 @@ We love pull requests. Here’s a quick guide:
   gulp main:prod test:build
   ```
 
-  Note: Probably you need gulp. Install gulp: `[sudo] npm install -g gulp-cli`
+  Note: Probably you need install gulp. Install gulp: `[sudo] npm install -g gulp-cli`
 
 4. Run the tests:
 
@@ -35,13 +36,7 @@ We love pull requests. Here’s a quick guide:
 
   Note: Make sure you have fresh build of your code.
 
-5. Lint your code:
-
-  ```bash
-  gulp lint
-  ```
-
-6. Commit your changes:
+5. Commit your changes:
 
   ```bash
   git commit -am "Adds a fix for that thing!"
@@ -49,15 +44,15 @@ We love pull requests. Here’s a quick guide:
 
   Note: For having better commit messages, you should [read this](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit).
 
-7. If everything looks good, push to your fork:
+6. If everything looks good, push to your fork:
 
   ```bash
   git push origin fix-for-that-thing
   ```
 
-8. [Submit a pull request.](https://help.github.com/articles/creating-a-pull-request)
+7. [Submit a pull request.](https://help.github.com/articles/creating-a-pull-request)
 
-9. Enjoy being the wonderful person you are
+8. Enjoy being the wonderful person you are
 
 ## Adding new features
 
