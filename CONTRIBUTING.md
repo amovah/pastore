@@ -44,10 +44,10 @@ We love pull requests. Here’s a quick guide:
 
   Note: For having better commit messages, you should [read this](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit).
 
-6. If everything looks good, push to your fork:
+6. If everything looks good, push your changes:
 
   ```bash
-  git push origin fix-for-that-thing
+  git push origin master
   ```
 
 7. [Submit a pull request.](https://help.github.com/articles/creating-a-pull-request)
