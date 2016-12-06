@@ -93,6 +93,14 @@ if (pastore.needInit) {
 }
 ```
 
+### clear
+
+Usage: `pastore.clear()`
+
+Return: `Promise`
+
+Reset pastore to default. everything include database, will be removed and reset.
+
 These below methods must run after initializing or loading database.
 
 ### add
