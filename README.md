@@ -97,7 +97,7 @@ These below methods must run after initializing or loading database.
 
 ### add
 
-Usage: `pastore.add(title, password, [moreInfo])`
+Usage: `pastore.add(title, password, [moreInfo]).then(pass)`
 
 Return: `Promise`
 
@@ -106,6 +106,10 @@ Arguments:
 - `title`: type `String`, required. title of password.
 - `password`: type `String`, required. password.
 - `moreInfo`: type `String`, optional, default `''`. more information for password like email, address of site or etc.
+
+Arguments to Promise:
+
+- `pass`: type `Object`. Password object which is saved.
 
 Add a password to database and save database. It will add automatically a unique id for each password.
 
@@ -207,6 +211,8 @@ Return: `Promise`
 Arguments:
 
 - `password`: type `String`, required. new password.
+
+Change password.
 
 ## Contributing
 
