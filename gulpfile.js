@@ -9,7 +9,7 @@ var rm = require('gulp-rimraf');
  */
 
 gulp.task('main:clean', function() {
-  return gulp.src('build/**/*', { read: false })
+  return gulp.src('build', { read: false })
         .pipe(rm());
 });
 

@@ -79,11 +79,12 @@ class Pastore {
   }
 
   async add(title, password, moreInfo = '') {
-    this.db.push({ id: unique(32), title, password, moreInfo });
+    let id = unique(32);
+    this.db.push({ id, title, password, moreInfo });
 
     await this.saveDB();
 
-    return this.db.slice(-1);
+    return this.findById(id);
   }
 
   remove(id) {
