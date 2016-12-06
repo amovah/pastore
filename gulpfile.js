@@ -14,7 +14,7 @@ gulp.task('main:clean', function() {
 });
 
 gulp.task('main:copy', function() {
-  gulp.src(['src/config.json', 'src/database'])
+  return gulp.src(['src/config.json', 'src/database'])
       .pipe(gulp.dest('build'));
 });
 
@@ -48,7 +48,7 @@ gulp.task('main:watch', function() {
  */
 
 gulp.task('test:clean', function() {
-  gulp.src('test/build/**/*', { read: false })
+  return gulp.src('test/build/**/*', { read: false })
       .pipe(rm());
 });
 
