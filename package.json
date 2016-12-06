@@ -1,9 +1,11 @@
 {
   "name": "pastore",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "keep your password safe",
   "main": "build/index.js",
-  "scripts": {},
+  "scripts": {
+    "bp": "gulp main:prod; npm publish"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/amovah/pastore.git"
