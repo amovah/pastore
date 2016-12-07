@@ -72,7 +72,7 @@ class Pastore {
       testString: null,
       method: 'AES'
     };
-    this.db = {};
+    this.db = [];
 
     await this.saveConfig();
     await this.clearDB();
