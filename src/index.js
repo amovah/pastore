@@ -109,7 +109,6 @@ class Pastore {
       }
     }
 
-
     this.db = [
       ...this.db.slice(0, index),
       Object.assign({}, this.db[index], toUpdate),
