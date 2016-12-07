@@ -90,9 +90,12 @@ class Pastore {
   remove(id) {
     let index = _.find(this.db, id);
 
-    this.db = [ ...this.db.slice(0, index), ...this.db.slice(index + 1)];
+    if (index !== undefined) {
+      this.db = [ ...this.db.slice(0, index), ...this.db.slice(index + 1)];
+      return this.saveDB();
+    }
 
-    return this.saveDB();
+    return Promise.reject();
   }
 
   update(id, update) {
