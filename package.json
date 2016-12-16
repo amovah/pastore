@@ -1,10 +1,11 @@
 {
   "name": "pastore",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "keep your password safe",
   "main": "build/index.js",
   "scripts": {
-    "bp": "gulp main:prod; npm publish"
+    "publish": "gulp prod; npm publish",
+    "dev": "gulp dev; gulp watch" 
   },
   "repository": {
     "type": "git",
@@ -40,12 +41,10 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-latest": "^6.16.0",
-    "chai": "^3.5.0",
     "eslint": "^3.7.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^3.0.1",
-    "gulp-mocha": "^3.0.1",
     "gulp-rimraf": "^0.2.0"
   },
   "dependencies": {
