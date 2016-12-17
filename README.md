@@ -215,6 +215,28 @@ Arguments:
 
 Change password, master one.
 
+
+### exportDB
+
+Usage: `pastore.exportDB()`
+
+Return: `String`
+
+Export encrypted database.
+
+### importDB
+
+Usage: `pastore.importDB(db, password)`
+
+Return: `Promise`
+
+Arguments:
+
+- `db`: type `String`, required. encrypted database.
+- `password`: type `String`, required. master password of this db, not current pastore.
+
+Import database.
+
 ## Contributing
 
 Any ideas and pull requests is appreciated. read [CONTRIBUTING.md](https://github.com/amovah/pastore/blob/master/CONTRIBUTING.md)

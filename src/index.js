@@ -168,6 +168,20 @@ class Pastore {
     await this.saveConfig();
     await this.saveDB();
   }
+
+  exportDB() {
+    return _.enc(
+      JSON.stringify(this.db),
+      this.password,
+      this.config.method
+    );
+  }
+
+  importDB(db, password) {
+    this.db = JSON.parse(_.dec(db, password, this.config.method));
+
+    return this.saveDB();
+  }
 }
 
 export default new Pastore();
