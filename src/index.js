@@ -85,7 +85,8 @@ class Pastore {
 
   async add(title, password, info = '') {
     if (!this.db.titles.includes(title)) {
-      this.db.passwords.push({title, password, info });
+      this.db.passwords.push({ title, password, info });
+      this.db.titles.push(title);
 
       await this.saveDB();
 
