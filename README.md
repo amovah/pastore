@@ -233,11 +233,7 @@ Return: `Promise`
 Arguments:
 
 - `db`: type `String`, required. encrypted database.
-- `password`: type `String`, required. master password of this db, not current pastore.
-
-Arguments to Promise:
-
-- `status`: type `Boolean`. it will be true if your password is correct and otherwise it will be false.
+- `password`: type `String`, required. master password of this db, not current password.
 
 Import database.
 
