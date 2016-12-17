@@ -177,10 +177,16 @@ class Pastore {
     );
   }
 
-  importDB(db, password) {
-    this.db = JSON.parse(_.dec(db, password, this.config.method));
+  async importDB(db, password) {
+    let dec = JSON.parse(_.dec(db, password, this.config.method));
 
-    return this.saveDB();
+    if (dec !== '') {
+      this.db = dec;
+      await this.saveDB();
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
