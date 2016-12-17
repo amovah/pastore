@@ -1,6 +1,6 @@
 {
   "name": "pastore",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "keep your password safe",
   "main": "build/index.js",
   "scripts": {

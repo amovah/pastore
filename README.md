@@ -68,7 +68,7 @@ Return: `Promise`
 
 Arguments:
 
-- `passowrd`: type `String`, required. It's master password.
+- `password`: type `String`, required. It's master password.
 
 Argument to Promise:
 
