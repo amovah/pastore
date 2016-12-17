@@ -178,10 +178,10 @@ class Pastore {
   }
 
   async importDB(db, password) {
-    let dec = JSON.parse(_.dec(db, password, this.config.method));
+    let dec = _.dec(db, password, this.config.method);
 
     if (dec !== '') {
-      this.db = dec;
+      this.db = JSON.parse(dec);
       await this.saveDB();
       return true;
     } else {
