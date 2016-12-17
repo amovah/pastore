@@ -97,13 +97,20 @@ class Pastore {
   }
 
   remove(title) {
-    let index = _.find(this.db.passwords, title);
+    let indexPass = _.find(this.db.passwords, title);
+    let indexTitle = this.db.titles.indexOf(title);
 
-    if (index !== undefined) {
+    if (indexPass !== undefined) {
       this.db.passwords = [
-        ...this.db.passwords.slice(0, index),
-        ...this.db.passwords.slice(index + 1)
+        ...this.db.passwords.slice(0, indexPass),
+        ...this.db.passwords.slice(indexPass + 1)
       ];
+
+      this.db.titles = [
+        ...this.db.titles.slice(0, indexTitle),
+        ...this.db.titles.slice(indexTitle + 1)
+      ];
+
       return this.saveDB();
     }
 
@@ -117,16 +124,25 @@ class Pastore {
     ) {
       return Promise.reject();
     } else {
-      let index = _.find(this.db.passwords, title);
+      let indexPass = _.find(this.db.passwords, title);
+      let indexTitle = this.db.titles.indexOf(title);
 
-      this.db = [
-        ...this.db.slice(0, index),
-        Object.assign({}, this.db[index], _.removeUndefined({
+      if (typeof update.title === 'string') {
+        this.db.titles = [
+          ...this.db.slice(0, indexTitle),
+          title,
+          ...this.db.slice(indexTitle + 1)
+        ];
+      }
+
+      this.db.passwords = [
+        ...this.db.passwords.slice(0, indexPass),
+        Object.assign({}, this.db.passwords[indexPass], _.removeUndefined({
           title: update.title,
           password: update.password,
           info: update.info
         })),
-        ...this.db.slice(index + 1)
+        ...this.db.passwords.slice(indexPass + 1)
       ];
 
       return this.saveDB();
