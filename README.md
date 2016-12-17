@@ -170,16 +170,16 @@ import pastore from 'pastore';
 pastore.init('something').then(() => {
   pastore.add('twitter', '123123');
 
-  pastore.find('title', 'twitter');
+  pastore.find('twitter');
 
   /*
    * return
    *
-   *  { title: 'twitter', password: '123123', moreInfo: ''},
+   *  { title: 'twitter', password: '123123', info: ''},
    *
    */
 
-  pastore.find('title', 'facebook');
+  pastore.find('facebook');
 
   /**
    * return undefined
