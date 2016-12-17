@@ -1,10 +1,10 @@
 {
   "name": "pastore",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "keep your password safe",
   "main": "build/index.js",
   "scripts": {
-    "publish": "gulp prod; npm publish",
+    "bp": "gulp prod; npm publish",
     "dev": "gulp dev; gulp watch"
   },
   "repository": {
