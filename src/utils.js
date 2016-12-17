@@ -82,10 +82,22 @@ export function dec(string, password, method) {
   return cr[method].decrypt(string, password).toString(cr.enc.Utf8);
 }
 
-export function find(data, id) {
+export function find(data, title) {
   for (let [index, pass] of data.entries()) {
-    if (pass.id === id) {
+    if (pass.title === title) {
       return index;
     }
   }
+}
+
+export function removeUndefined(obj) {
+  let res = {};
+
+  for (let key in obj) {
+    if (typeof obj[key] === 'string') {
+      res[key] = obj[key];
+    }
+  }
+
+  return res;
 }

@@ -1,11 +1,11 @@
 {
   "name": "pastore",
-  "version": "0.2.6",
+  "version": "0.2.8",
   "description": "keep your password safe",
   "main": "build/index.js",
   "scripts": {
     "publish": "gulp prod; npm publish",
-    "dev": "gulp dev; gulp watch" 
+    "dev": "gulp dev; gulp watch"
   },
   "repository": {
     "type": "git",
@@ -51,6 +51,5 @@
     "babel-runtime": "^6.18.0",
     "crypto-js": "^3.1.7",
     "fs-extra": "^0.30.0",
-    "stringing": "^1.6.6"
   }
 }

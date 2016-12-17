@@ -1,4 +1,3 @@
-import { unique } from 'stringing';
 import { join } from 'path';
 import * as _ from './utils';
 import config from './config';
@@ -10,7 +9,10 @@ class Pastore {
       config: join(__dirname + '/config.json'),
       database: join(__dirname + '/database')
     };
-    this.db = [];
+    this.db = {
+      titles: [],
+      passwords: []
+    };
     this.password = null;
   }
 
@@ -72,82 +74,74 @@ class Pastore {
       testString: null,
       method: 'AES'
     };
-    this.db = [];
+    this.db = {
+      titles: [],
+      passwords: []
+    };
 
     await this.saveConfig();
     await this.clearDB();
   }
 
-  async add(title, password, moreInfo = '') {
-    let id = unique(32);
-    this.db.push({ id, title, password, moreInfo });
+  async add(title, password, info = '') {
+    if (!this.db.titles.contains(title)) {
+      this.db.passwords.push({title, password, info });
 
-    await this.saveDB();
+      await this.saveDB();
 
-    return this.findById(id);
+      return this.find(title);
+    } else {
+      return false;
+    }
   }
 
-  remove(id) {
-    let index = _.find(this.db, id);
+  remove(title) {
+    let index = _.find(this.db.passwords, title);
 
     if (index !== undefined) {
-      this.db = [ ...this.db.slice(0, index), ...this.db.slice(index + 1)];
+      this.db.passwords = [
+        ...this.db.passwords.slice(0, index),
+        ...this.db.passwords.slice(index + 1)
+      ];
       return this.saveDB();
     }
 
     return Promise.reject();
   }
 
-  update(id, update) {
-    let index = _.find(this.db, id);
+  update(title, update) {
+    if (
+      typeof update.title === 'string'
+      && this.db.titles.contians(update.title)
+    ) {
+      return Promise.reject();
+    } else {
+      let index = _.find(this.db.passwords, title);
 
-    let toUpdate = {};
+      this.db = [
+        ...this.db.slice(0, index),
+        Object.assign({}, this.db[index], _.removeUndefined({
+          title: update.title,
+          password: update.password,
+          info: update.info
+        })),
+        ...this.db.slice(index + 1)
+      ];
 
-    for (let key in update) {
-      if (update[key] !== undefined || null) {
-        toUpdate[key] = update[key];
-      }
-    }
-
-    this.db = [
-      ...this.db.slice(0, index),
-      Object.assign({}, this.db[index], toUpdate),
-      ...this.db.slice(index + 1)
-    ];
-
-    return this.saveDB();
-  }
-
-  findById(id) {
-    for (let pass of this.db) {
-      if (pass.id === id) {
-        return pass;
-      }
+      return this.saveDB();
     }
   }
 
-  find(key, value) {
-    let result = [];
-
-    for (let pass of this.db) {
-      if (pass[key] === value) {
-        result.push(pass);
-      }
-    }
-
-    return result.length === 0 ? undefined : result;
+  find(title) {
+    return this.db.passwords[_.find(this.db.passwords, title)];
   }
 
-  findOne(key, value) {
-    for (let pass of this.db.values()) {
-      if (pass[key] === value) {
-        return pass;
-      }
-    }
+  findPasswords() {
+    return this.db.passwords;
   }
 
-  findAll() {
-    return this.db;
+  findTitles() {
+    return this.db.titles;
   }
 
   async changePassword(password) {

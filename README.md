@@ -105,75 +105,62 @@ These below methods must run after initializing or loading database.
 
 ### add
 
-Usage: `pastore.add(title, password, [moreInfo]).then(pass)`
+Usage: `pastore.add(title, password, [info]).then(pass || false)`
 
 Return: `Promise`
 
 Arguments:
 
-- `title`: type `String`, required. title of password.
+- `title`: type `String`, required. title of password. title must be unique.
 - `password`: type `String`, required. password.
-- `moreInfo`: type `String`, optional, default `''`. more information for password like email, address of site or etc.
+- `info`: type `String`, optional, default `''`. more information for password like email, site address or etc.
 
 Arguments to Promise:
 
 - `pass`: type `Object`. Password object which is saved.
+- `false`: type `Boolean`. If your title is not unique, it will be false.
 
-Add a password to database and save database. It will add automatically a unique id for each password.
+Add a password to database and save database.
+
 
 ### remove
 
-Usage: `pastore.remove(id)`
+Usage: `pastore.remove(title)`
 
 Return: `Promise`
 
 Arguments:
 
-- `id`: type `String`, required. password unique id.
+- `title`: type `String`, required. password title.
 
-Remove a password from database and save it.
+Remove a password from database.
 
 ### update
 
-Usage: `pastore.update(id, update)`
+Usage: `pastore.update(title, update)`
 
 Return: `Promise`
 
 Arguments:
 
-- `id`: type `String`, required. password unique id.
-- `update`: type `Object`, required. object replace with old stuff.
+- `title`: type `String`, required. password title.
+- `update`: type `Object`, required. object will be replaced with old stuff.
 
-Update a password. You are allowed only to change title, password and more info, not unique id.
-
-### findById
-
-Usage: `pastore.findById(id)`
-
-Return: `Object` or `undefined`.
-
-return undefined when there is no password with that condition
-
-Arguments:
-
-- `id`: type `String`, required. password unique id.
-
-Search and find a password by specified id and return the password.
+Update a password.
 
 ### find
 
-Usage: `pastore.find(key, value)`
+Usage: `pastore.find(title)`
 
 Return: `Object` or `undefined`.
 
-return undefined when there is no password with that condition.
+Return undefined when there is no password with the `title`.
 
 Arguments:
 
-- `key`: type `String`, required. key for searching, like title.
-- `value`: type `String`, required. value for searching, like twitter.
+- `title`: type `String`, required. key for searching, like title.
 
-Search and find all passwords by specified key and value, like searching for a password that it has twitter as title.
+Search and find password by specified title, like searching for a password that it has twitter as title.
 
 Example:
 
@@ -182,16 +169,14 @@ import pastore from 'pastore';
 
 pastore.init('something').then(() => {
   pastore.add('twitter', '123123');
-  pastore.add('twitter', '124124');
 
   pastore.find('title', 'twitter');
 
   /*
    * return
-   * [
-   *  { id, title: 'twitter', password: '123123', moreInfo: ''},
-   *  { id, title: 'twitter', password: '124124', moreInfo: ''}
-   * ]
+   *
+   *  { title: 'twitter', password: '123123', moreInfo: ''},
+   *
    */
 
   pastore.find('title', 'facebook');
@@ -208,7 +193,15 @@ Usage: `pastore.findAll()`
 
 Return: `Array`
 
-Return password database, all passwords.
+Return passwords.
+
+### findTitles
+
+Usage: `pastore.findTitles()`
+
+Return: `Array`
+
+Return **only** titles.
 
 ### changePassword
 
@@ -220,11 +213,11 @@ Arguments:
 
 - `password`: type `String`, required. new password.
 
-Change password.
+Change password, master one.
 
 ## Contributing
 
-any ideas and pull requests is appreciated.
+Any ideas and pull requests is appreciated. read [CONTRIBUTING.md](https://github.com/amovah/pastore/blob/master/CONTRIBUTING.md)
 
 ## LICENSE
 
