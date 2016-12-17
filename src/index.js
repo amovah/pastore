@@ -84,7 +84,7 @@ class Pastore {
   }
 
   async add(title, password, info = '') {
-    if (!this.db.titles.contains(title)) {
+    if (!this.db.titles.includes(title)) {
       this.db.passwords.push({title, password, info });
 
       await this.saveDB();
@@ -112,7 +112,7 @@ class Pastore {
   update(title, update) {
     if (
       typeof update.title === 'string'
-      && this.db.titles.contians(update.title)
+      && this.db.titles.includes(update.title)
     ) {
       return Promise.reject();
     } else {
