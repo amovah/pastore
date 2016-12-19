@@ -129,9 +129,9 @@ class Pastore {
 
       if (typeof update.title === 'string') {
         this.db.titles = [
-          ...this.db.slice(0, indexTitle),
+          ...this.db.titles.slice(0, indexTitle),
           title,
-          ...this.db.slice(indexTitle + 1)
+          ...this.db.titles.slice(indexTitle + 1)
         ];
       }
 
