@@ -148,6 +148,18 @@ Arguments:
 
 Update a password.
 
+Example:
+
+```js
+import pastore from 'pastore';
+
+pastore.load('something').then(async () => {
+  await pastore.add('twitter', '123123');
+
+  pastore.update('twitter', {title: 'tweet', password: '173532'});
+});
+```
+
 ### find
 
 Usage: `pastore.find(title)`
@@ -167,8 +179,8 @@ Example:
 ```js
 import pastore from 'pastore';
 
-pastore.init('something').then(() => {
-  pastore.add('twitter', '123123');
+pastore.init('something').then(aync () => {
+  await pastore.add('twitter', '123123');
 
   pastore.find('twitter');
 
