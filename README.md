@@ -105,7 +105,7 @@ These below methods must run after initializing or loading database.
 
 ### add
 
-Usage: `pastore.add(title, password, [info]).then(pass || false)`
+Usage: `pastore.add(title, password, [info]).then(pass).catch(err)`
 
 Return: `Promise`
 
@@ -118,9 +118,9 @@ Arguments:
 Arguments to Promise:
 
 - `pass`: type `Object`. Password object which is saved.
-- `false`: type `Boolean`. If your title is not unique, it will be false.
+- `err`: type `TypeError`. It will occur if there is a another password with same title.
 
-Add a password to database and save database.
+Add a password.
 
 
 ### remove
@@ -133,7 +133,7 @@ Arguments:
 
 - `title`: type `String`, required. password title.
 
-Remove a password from database.
+Remove a password.
 
 ### update
 

@@ -92,7 +92,7 @@ class Pastore {
 
       return this.find(title);
     } else {
-      return false;
+      throw new TypeError('Duplicated title');
     }
   }
 
@@ -112,9 +112,9 @@ class Pastore {
       ];
 
       return this.saveDB();
+    } else {
+      return Promise.reject();
     }
-
-    return Promise.reject();
   }
 
   update(title, update) {
@@ -130,7 +130,7 @@ class Pastore {
       if (typeof update.title === 'string') {
         this.db.titles = [
           ...this.db.titles.slice(0, indexTitle),
-          title,
+          update.title,
           ...this.db.titles.slice(indexTitle + 1)
         ];
       }
