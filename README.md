@@ -86,7 +86,7 @@ if (pastore.needInit) {
   }).catch(error => { console.log(error); })
 } else {
   pastore.load('icantremember').then(status => {
-    status ? console.log('it was your password man') : console.log('go to hell, brainless');
+    status ? console.log('password was correct') : console.log('password was not correct');
   }).catch(() => {
     console.log('initialize this shit');
   });
