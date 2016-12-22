@@ -92,16 +92,16 @@ class Pastore {
     await this.clearDB();
   }
 
-  async add(title, password, info = '') {
+  async add(title, password, info = null, tag = null) {
     if (!this.db.titles.includes(title)) {
-      this.db.passwords.push({ title, password, info });
+      this.db.passwords.push({ title, password, info, tag });
       this.db.titles.push(title);
 
       await this.saveDB();
 
       return this.find(title);
     } else {
-      throw new TypeError('Duplicated title');
+      throw new TypeError('duplicated title');
     }
   }
 
@@ -149,7 +149,8 @@ class Pastore {
         Object.assign({}, this.db.passwords[indexPass], _.removeUndefined({
           title: update.title,
           password: update.password,
-          info: update.info
+          info: update.info,
+          tag: update.tag
         })),
         ...this.db.passwords.slice(indexPass + 1)
       ];
@@ -160,6 +161,23 @@ class Pastore {
 
   find(title) {
     return this.db.passwords[_.find(this.db.passwords, title)];
+  }
+
+  findByTag(tag) {
+    let result = [];
+    for (let password of this.db.passwords) {
+      if (password.tag === tag) {
+        result.push(password);
+      }
+    }
+
+    return result;
+  }
+
+  async removeByTag(tag) {
+    for (let password of this.findByTag(tag)) {
+      await this.remove(password.title);
+    }
   }
 
   findPasswords() {

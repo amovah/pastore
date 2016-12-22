@@ -2,6 +2,10 @@
 
 Keep your password safe. It's pastore API. you can write your own app by using this module.
 
+# App using pastore
+
+* [pastore-cli](https://github.com/amovah/pastore-cli)
+
 # Installation
 
 ```sh
@@ -104,7 +108,7 @@ These below methods must run after initializing or loading database.
 
 ### add
 
-Usage: `pastore.add(title, password, [info]).then(pass).catch(err)`
+Usage: `pastore.add(title, password, [info], [tag]).then(pass).catch(err)`
 
 Return: `Promise`
 
@@ -112,7 +116,8 @@ Arguments:
 
 - `title`: type `String`, required. title of password. title must be unique.
 - `password`: type `String`, required. password.
-- `info`: type `String`, optional, default `''`. more information for password like email, site address or etc.
+- `info`: type `String`, optional, default `null`. more information for password like email, site address or etc.
+- `tag`: type `Array`, optional, default `null`. password tag.
 
 Arguments to Promise:
 
@@ -133,6 +138,18 @@ Arguments:
 - `title`: type `String`, required. password title.
 
 Remove a password.
+
+### removeByTag
+
+Usage: `pastore.removeByTag(tag)`
+
+Return: `Promise`
+
+Arguments:
+
+- `tag`: type `String`, required. password tag.
+
+Remove passwords which they have specified tag.
 
 ### update
 
@@ -198,13 +215,25 @@ pastore.init('something', 'AES').then(aync () => {
 });
 ```
 
-### findAll
+### findByTag
 
-Usage: `pastore.findAll()`
+Usage: `pastore.findByTag(tag)`
 
 Return: `Array`
 
-Return passwords.
+Arguments:
+
+- `tag`: type `String`, required. password tag.
+
+Return passwords which they have specified tag.
+
+### findPasswords
+
+Usage: `pastore.findPasswords()`
+
+Return: `Array`
+
+Return all passwords.
 
 ### findTitles
 
@@ -261,10 +290,10 @@ Arguments:
 
 Import database.
 
-## Contributing
+# Contributing
 
 Any ideas and pull requests is appreciated. read [CONTRIBUTING.md](https://github.com/amovah/pastore/blob/master/CONTRIBUTING.md)
 
-## LICENSE
+# LICENSE
 
 MIT
