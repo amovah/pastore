@@ -14,35 +14,45 @@ class Pastore {
       passwords: []
     };
     this.password = null;
+    this.algorithm = null;
   }
 
-  async init(password) {
-    this.password = password;
-    this.config.testString = _.enc('pastore', password, this.config.method);
+  async init(password, algorithm) {
+    let status = [
+      'AES',
+      'DES',
+      'TripleDES',
+      'RC4',
+      'RC4Drop',
+      'Rabbit',
+      'RabbitLegacy'
+    ].includes(algorithm);
 
-    await this.saveConfig();
-    await this.saveDB();
+    if (status) {
+      this.password = password;
+      this.algorithm = algorithm;
+      this.config.algorithm = _.enc(algorithm, password, 'AES');
+
+      await this.saveConfig();
+      await this.saveDB();
+    } else {
+      throw new TypeError('invalid algorithm');
+    }
   }
 
   async load(password) {
-    this.password = password;
+    try {
+      this.password = password;
+      this.algorithm = _.dec(this.config.algorithm, password, 'AES');
 
-    let testString = _.dec(
-      this.config.testString,
-      this.password,
-      this.config.method
-    );
-
-    if (testString === 'pastore') {
       this.db = await this.loadDB();
-      return true;
-    } else {
-      return false;
+    } catch(e) {
+      throw new TypeError('password is not correct');
     }
   }
 
   get needInit() {
-    return !this.config.testString;
+    return !this.config.algorithm;
   }
 
   saveConfig() {
@@ -53,7 +63,7 @@ class Pastore {
     let encrypted = _.enc(
       JSON.stringify(this.db),
       this.password,
-      this.config.method
+      this.algorithm
     );
 
 
@@ -62,7 +72,7 @@ class Pastore {
 
   async loadDB() {
     let db = await _.read(this.paths.database);
-    return JSON.parse(_.dec(db, this.password, this.config.method));
+    return JSON.parse(_.dec(db, this.password, this.algorithm));
   }
 
   clearDB() {
@@ -70,14 +80,13 @@ class Pastore {
   }
 
   async clear() {
-    this.config = {
-      testString: null,
-      method: 'AES'
-    };
+    this.config = {};
     this.db = {
       titles: [],
       passwords: []
     };
+    this.password = null;
+    this.algorithm = null;
 
     await this.saveConfig();
     await this.clearDB();
@@ -163,22 +172,44 @@ class Pastore {
 
   async changePassword(password) {
     this.password = password;
-    this.config.testString = _.enc('pastore', password, this.config.method);
+    this.config.algorithm = _.enc(this.algorithm, password, 'AES');
 
     await this.saveConfig();
     await this.saveDB();
+  }
+
+  async changeAlgorithm(algorithm) {
+    let status = [
+      'AES',
+      'DES',
+      'TripleDES',
+      'RC4',
+      'RC4Drop',
+      'Rabbit',
+      'RabbitLegacy'
+    ].includes(algorithm);
+
+    if (status) {
+      this.algorithm = algorithm;
+      this.config.algorithm = _.enc(algorithm, this.password, 'AES');
+
+      await this.saveConfig();
+      await this.saveDB();
+    } else {
+      throw new TypeError('invalid algorithm');
+    }
   }
 
   exportDB() {
     return _.enc(
       JSON.stringify(this.db),
       this.password,
-      this.config.method
+      this.algorithm
     );
   }
 
-  importDB(db, password) {
-    this.db = JSON.parse(_.dec(db, password, this.config.method));
+  importDB(db, password, algorithm) {
+    this.db = JSON.parse(_.dec(db, password, algorithm));
 
     return this.saveDB();
   }

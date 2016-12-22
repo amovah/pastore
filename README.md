@@ -36,13 +36,14 @@ if (pastore.needInit) {
 
 ### init
 
-Usage: `pastore.init(password)`
+Usage: `pastore.init(password, algorithm)`
 
 Return: `Promise`
 
 Arguments:
 
 - `password`: type `String`, required. It's master password.
+- `algorithm`: type `String`, required. Encryption algorithm. Available algorithms: `AES`, `DES`, `TripleDES`, `RC4`, `RC4Drop`, `Rabbit`, `RabbitLegacy`.
 
 Initialize pastore with your master password.
 
@@ -52,7 +53,7 @@ Example:
 
 ```javascript
 if (pastore.needInit) {
-  pastore.init('yourmasterpassword').then(() => {
+  pastore.init('yourmasterpassword', 'Rabbit').then(() => {
     // Do what you want to do
   }).catch(error => { console.log(error); })
 } else {
@@ -62,17 +63,15 @@ if (pastore.needInit) {
 
 ### load
 
-Usage: `pastore.load(password).then(status)`
+Usage: `pastore.load(password)`
 
 Return: `Promise`
+
+`Promise` will reject if you enter incorrect password.
 
 Arguments:
 
 - `password`: type `String`, required. It's master password.
-
-Argument to Promise:
-
-- `status`: type `Boolean`. if your master password is correct it will be `true` otherwise it will be `false`.
 
 Load database.
 
@@ -81,14 +80,14 @@ Example:
 
 ```javascript
 if (pastore.needInit) {
-  pastore.init('yourmasterpassword').then(() => {
+  pastore.init('yourmasterpassword', 'Rabbit').then(() => {
     // Do what you want to do
   }).catch(error => { console.log(error); })
 } else {
-  pastore.load('icantremember').then(status => {
-    status ? console.log('password was correct') : console.log('password was not correct');
-  }).catch(() => {
-    console.log('initialize this shit');
+  pastore.load('icantremember').then(() => {
+    console.log('password was correct');
+  }).catch(err => {
+    console.log(err);
   });
 }
 ```
@@ -179,7 +178,7 @@ Example:
 ```js
 import pastore from 'pastore';
 
-pastore.init('something').then(aync () => {
+pastore.init('something', 'AES').then(aync () => {
   await pastore.add('twitter', '123123');
 
   pastore.find('twitter');
@@ -227,6 +226,18 @@ Arguments:
 
 Change password, master one.
 
+### changeAlgorithm
+
+Usage: `pastore.changeAlgorithm(algorithm)`
+
+Return: `Promise`
+
+Arguments:
+
+- `algorithm`: type `String`, required. new algorithm. Available algorithms: `AES`, `DES`, `TripleDES`, `RC4`, `RC4Drop`, `Rabbit`, `RabbitLegacy`.
+
+
+Change encryption algorithm.
 
 ### exportDB
 
@@ -238,14 +249,15 @@ Export encrypted database.
 
 ### importDB
 
-Usage: `pastore.importDB(db, password)`
+Usage: `pastore.importDB(db, password, algorithm)`
 
 Return: `Promise`
 
 Arguments:
 
 - `db`: type `String`, required. encrypted database.
-- `password`: type `String`, required. master password of this db, not current password.
+- `password`: type `String`, required. `db` master password.
+- `algorithm`: type `String`, required. `db` algorithm encryption.
 
 Import database.
 
