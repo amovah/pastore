@@ -36,7 +36,7 @@ class Pastore {
       await this.saveConfig();
       await this.saveDB();
     } else {
-      throw new TypeError('invalid algorithm');
+      throw new Error('invalid algorithm');
     }
   }
 
@@ -47,7 +47,7 @@ class Pastore {
 
       this.db = await this.loadDB();
     } catch(e) {
-      throw new TypeError('password is not correct');
+      throw new Error('password is not correct');
     }
   }
 
@@ -101,7 +101,7 @@ class Pastore {
 
       return this.find(title);
     } else {
-      throw new TypeError('duplicated title');
+      throw new Error('duplicated title');
     }
   }
 
@@ -214,7 +214,7 @@ class Pastore {
       await this.saveConfig();
       await this.saveDB();
     } else {
-      throw new TypeError('invalid algorithm');
+      throw new Error('invalid algorithm');
     }
   }
 
