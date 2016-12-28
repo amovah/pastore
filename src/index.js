@@ -122,7 +122,7 @@ class Pastore {
 
       return this.saveDB();
     } else {
-      return Promise.reject();
+      return Promise.reject(new Error('password not found'));
     }
   }
 
@@ -131,7 +131,7 @@ class Pastore {
       typeof update.title === 'string'
       && this.db.titles.includes(update.title)
     ) {
-      return Promise.reject();
+      return Promise.reject(new Error('duplicated title'));
     } else {
       let indexPass = _.find(this.db.passwords, title);
       let indexTitle = this.db.titles.indexOf(title);
