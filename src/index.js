@@ -93,6 +93,10 @@ class Pastore {
   }
 
   async add(title, password, info = null, tag = null) {
+    if (title === undefined || password === undefined) {
+      throw new Error('missing title or password');
+    }
+
     if (!this.db.titles.includes(title)) {
       this.db.passwords.push({ title, password, info, tag });
       this.db.titles.push(title);
@@ -132,30 +136,36 @@ class Pastore {
       && this.db.titles.includes(update.title)
     ) {
       return Promise.reject(new Error('duplicated title'));
+    } else if (title === undefined || title === '') {
+      return Promise.reject(new Error('enter correct title'));
     } else {
       let indexPass = _.find(this.db.passwords, title);
-      let indexTitle = this.db.titles.indexOf(title);
+      if (indexPass === undefined) {
+        return Promise.reject(new Error('enter correct title'));
+      } else {
+        let indexTitle = this.db.titles.indexOf(title);
 
-      if (typeof update.title === 'string') {
-        this.db.titles = [
-          ...this.db.titles.slice(0, indexTitle),
-          update.title,
-          ...this.db.titles.slice(indexTitle + 1)
+        if (typeof update.title === 'string') {
+          this.db.titles = [
+            ...this.db.titles.slice(0, indexTitle),
+            update.title,
+            ...this.db.titles.slice(indexTitle + 1)
+          ];
+        }
+
+        this.db.passwords = [
+          ...this.db.passwords.slice(0, indexPass),
+          Object.assign({}, this.db.passwords[indexPass], _.removeUndefined({
+            title: update.title,
+            password: update.password,
+            info: update.info,
+            tag: update.tag
+          })),
+          ...this.db.passwords.slice(indexPass + 1)
         ];
+
+        return this.saveDB();
       }
-
-      this.db.passwords = [
-        ...this.db.passwords.slice(0, indexPass),
-        Object.assign({}, this.db.passwords[indexPass], _.removeUndefined({
-          title: update.title,
-          password: update.password,
-          info: update.info,
-          tag: update.tag
-        })),
-        ...this.db.passwords.slice(indexPass + 1)
-      ];
-
-      return this.saveDB();
     }
   }
 
